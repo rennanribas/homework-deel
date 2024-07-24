@@ -1,21 +1,21 @@
-const { Model } = require('sequelize')
-const { Contract } = require('../entities/contract') // Import the Contract model
+import { Contract as ContractConstants } from '../constants'
+import { Contract as ContractEntity } from '../entities'
 
 class ContractRepository {
   static async findById(id, whereOptions = {}) {
     const options = { where: { id, ...whereOptions } }
-    return await Contract.findOne(options)
+    return await ContractEntity.findOne(options)
   }
 
   static async findNotTerminated(filter = {}) {
     const notTerminatedFilter = {
       where: {
         ...(filter.where || {}),
-        status: { [Op.ne]: ContractStatus.TERMINATED },
+        status: { [Op.ne]: ContractConstants.type.TERMINATED },
       },
     }
 
-    return await Contract.findAll(notTerminatedFilter)
+    return await ContractEntity.findAll(notTerminatedFilter)
   }
 
   static isContractor(profile, contract) {
