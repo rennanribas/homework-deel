@@ -1,14 +1,15 @@
-const app = require('./app');
+const app = require('./app')
 
-init();
+init()
 
 async function init() {
   try {
-    app.listen(3001, () => {
-      console.log('Express App Listening on Port 3001');
-    });
+    const PORT = process.env.PORT || 3001
+    app.listen(PORT, () => {
+      console.log(`Express App Listening on Port ${PORT}`)
+    })
   } catch (error) {
-    console.error(`An error occurred: ${JSON.stringify(error)}`);
-    process.exit(1);
+    console.error(`An error occurred: ${JSON.stringify(error)}`)
+    process.exit(1)
   }
 }

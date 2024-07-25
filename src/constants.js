@@ -1,4 +1,4 @@
-export const Contract = {
+const Contract = {
   type: {
     NEW: 'new',
     IN_PROGRESS: 'in_progress',
@@ -6,11 +6,13 @@ export const Contract = {
   },
 }
 
-export const Job = { maxPercentage: 0.25 }
+const Job = { maxPercentage: 0.25 }
 
-export const Profile = {
+const Profile = {
   type: {
     CONTRACTOR: 'contractor',
     CLIENT: 'client',
   },
 }
+
+module.exports = { Contract, Job, Profile }

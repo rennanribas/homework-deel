@@ -1,37 +1,32 @@
-module.exports = (sequelize) => {
-  class Profile extends sequelize.Model {}
+const { Model, DataTypes } = require('sequelize')
+const sequelize = require('./config')
 
-  Profile.init(
-    {
-      firstName: {
-        type: sequelize.STRING,
-        allowNull: false,
-      },
-      lastName: {
-        type: sequelize.STRING,
-        allowNull: false,
-      },
-      profession: {
-        type: sequelize.STRING,
-        allowNull: false,
-      },
-      balance: {
-        type: sequelize.DECIMAL(12, 2),
-      },
-      type: {
-        type: sequelize.ENUM('client', 'contractor'),
-      },
-      role: {
-        type: sequelize.ENUM('admin', 'user'),
-        allowNull: false,
-        defaultValue: 'user',
-      },
+class Profile extends Model {}
+
+Profile.init(
+  {
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    {
-      sequelize,
-      modelName: 'Profile',
-    }
-  )
-
-  return Profile
-}
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    profession: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    balance: {
+      type: DataTypes.DECIMAL(12, 2),
+    },
+    type: {
+      type: DataTypes.ENUM('client', 'contractor'),
+    },
+  },
+  {
+    sequelize,
+    modelName: 'Profile',
+  }
+)
+module.exports = Profile

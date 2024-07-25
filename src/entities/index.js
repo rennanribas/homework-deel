@@ -1,8 +1,6 @@
-import { sequelizeConfig } from './config'
-
-const Job = require('./models/job')(sequelizeConfig)
-const Contract = require('./models/contract')(sequelizeConfig)
-const Profile = require('./models/profile')(sequelizeConfig)
+const Job = require('./job')
+const Contract = require('./contract')
+const Profile = require('./profile')
 
 Profile.hasMany(Contract, { as: 'Contractor', foreignKey: 'ContractorId' })
 Contract.belongsTo(Profile, { as: 'Contractor' })
@@ -11,10 +9,10 @@ Contract.belongsTo(Profile, { as: 'Client' })
 Contract.hasMany(Job)
 Job.belongsTo(Contract)
 
-const models = {
+const entities = {
   Job,
   Contract,
   Profile,
 }
 
-module.exports = models
+module.exports = entities

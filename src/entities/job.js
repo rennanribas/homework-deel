@@ -1,29 +1,30 @@
-module.exports = (sequelize) => {
-  class Job extends sequelize.Model {}
+const { Model, DataTypes } = require('sequelize')
+const sequelize = require('./config')
 
-  Job.init(
-    {
-      description: {
-        type: sequelize.TEXT,
-        allowNull: false,
-      },
-      price: {
-        type: sequelize.DECIMAL(12, 2),
-        allowNull: false,
-      },
-      paid: {
-        type: sequelize.BOOLEAN,
-        default: false,
-      },
-      paymentDate: {
-        type: sequelize.DATE,
-      },
+class Job extends Model {}
+
+Job.init(
+  {
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
-    {
-      sequelize,
-      modelName: 'Job',
-    }
-  )
+    price: {
+      type: DataTypes.DECIMAL(12, 2),
+      allowNull: false,
+    },
+    paid: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    paymentDate: {
+      type: DataTypes.DATE,
+    },
+  },
+  {
+    sequelize,
+    modelName: 'Job',
+  }
+)
 
-  return Job
-}
+module.exports = Job

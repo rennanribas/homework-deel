@@ -1,21 +1,22 @@
-module.exports = (sequelize) => {
-  class Contract extends sequelize.Model {}
+const { Model, DataTypes } = require('sequelize')
+const sequelize = require('./config')
 
-  Contract.init(
-    {
-      terms: {
-        type: sequelize.TEXT,
-        allowNull: false,
-      },
-      status: {
-        type: sequelize.ENUM('new', 'in_progress', 'terminated'),
-      },
+class Contract extends Model {}
+
+Contract.init(
+  {
+    terms: {
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
-    {
-      sequelize,
-      modelName: 'Contract',
-    }
-  )
+    status: {
+      type: DataTypes.ENUM('new', 'in_progress', 'terminated'),
+    },
+  },
+  {
+    sequelize,
+    modelName: 'Contract',
+  }
+)
 
-  return Contract
-}
+module.exports = Contract
