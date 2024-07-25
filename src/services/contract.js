@@ -29,11 +29,11 @@ const findNotTerminatedByProfile = async (profile) => {
   let contracts = []
 
   if (profile.type === ProfileConstants.type.CLIENT) {
-    contracts = await ContractRepository.findNotTerminated({
+    contracts = await ContractRepository.findNonTerminated({
       where: { ClientId: profile.id },
     })
   } else if (profile.type === ProfileConstants.type.CONTRACTOR) {
-    contracts = await ContractRepository.findNotTerminated({
+    contracts = await ContractRepository.findNonTerminated({
       where: { ContractorId: profile.id },
     })
   }
