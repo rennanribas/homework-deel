@@ -17,7 +17,7 @@
 						"type": "text"
 					}
 				],
-				"url": "localhost:3001/contracts/1"
+				"url": "localhost:3000/contracts/2"
 			},
 			"response": [
 				{
@@ -31,43 +31,12 @@
 								"type": "text"
 							}
 						],
-						"url": "localhost:3001/contracts/1"
+						"url": "localhost:3000/contracts/2"
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "171"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"ab-roJ1dGXQEWfmAZCmTJcVIjVUqdM\""
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 26 Jul 2024 12:39:17 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
+					"_postman_previewlanguage": null,
+					"header": null,
 					"cookie": [],
-					"body": "{\n    \"result\": {\n        \"id\": 1,\n        \"terms\": \"bla bla bla\",\n        \"status\": \"terminated\",\n        \"createdAt\": \"2024-07-26T12:25:31.967Z\",\n        \"updatedAt\": \"2024-07-26T12:25:31.967Z\",\n        \"ContractorId\": 5,\n        \"ClientId\": 1\n    }\n}"
+					"body": null
 				}
 			]
 		},
@@ -82,11 +51,11 @@
 						"type": "text"
 					}
 				],
-				"url": "localhost:3001/contracts"
+				"url": "localhost:3000/contracts"
 			},
 			"response": [
 				{
-					"name": "Contract By Id Copy",
+					"name": "Contracts By Profile",
 					"originalRequest": {
 						"method": "GET",
 						"header": [
@@ -96,43 +65,12 @@
 								"type": "text"
 							}
 						],
-						"url": "localhost:3001/contracts"
+						"url": "localhost:3000/contracts"
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "174"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"ae-0z8FkX0xWiNqWDylfMUDfnu1UPA\""
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 26 Jul 2024 12:39:14 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
+					"_postman_previewlanguage": null,
+					"header": null,
 					"cookie": [],
-					"body": "{\n    \"result\": [\n        {\n            \"id\": 2,\n            \"terms\": \"bla bla bla\",\n            \"status\": \"in_progress\",\n            \"createdAt\": \"2024-07-26T12:25:31.967Z\",\n            \"updatedAt\": \"2024-07-26T12:25:31.967Z\",\n            \"ContractorId\": 6,\n            \"ClientId\": 1\n        }\n    ]\n}"
+					"body": null
 				}
 			]
 		},
@@ -147,11 +85,11 @@
 						"type": "text"
 					}
 				],
-				"url": "localhost:3001/jobs/unpaid"
+				"url": "localhost:3000/jobs/unpaid"
 			},
 			"response": [
 				{
-					"name": "Contracts By Profile Copy",
+					"name": "Jobs Unpaid",
 					"originalRequest": {
 						"method": "GET",
 						"header": [
@@ -161,43 +99,12 @@
 								"type": "text"
 							}
 						],
-						"url": "localhost:3001/jobs/unpaid"
+						"url": "localhost:3000/jobs/unpaid"
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "680"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"2a8-Vjvp0WejMWESBeYOqBqGFwvKTag\""
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 26 Jul 2024 12:39:10 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
+					"_postman_previewlanguage": null,
+					"header": null,
 					"cookie": [],
-					"body": "{\n    \"result\": [\n        {\n            \"id\": 1,\n            \"description\": \"work\",\n            \"price\": 200,\n            \"paid\": false,\n            \"paymentDate\": null,\n            \"createdAt\": \"2024-07-26T12:25:31.968Z\",\n            \"updatedAt\": \"2024-07-26T12:25:31.968Z\",\n            \"ContractId\": 1\n        },\n        {\n            \"id\": 3,\n            \"description\": \"work\",\n            \"price\": 202,\n            \"paid\": false,\n            \"paymentDate\": null,\n            \"createdAt\": \"2024-07-26T12:25:31.969Z\",\n            \"updatedAt\": \"2024-07-26T12:25:31.969Z\",\n            \"ContractId\": 3\n        },\n        {\n            \"id\": 4,\n            \"description\": \"work\",\n            \"price\": 200,\n            \"paid\": false,\n            \"paymentDate\": null,\n            \"createdAt\": \"2024-07-26T12:25:31.969Z\",\n            \"updatedAt\": \"2024-07-26T12:25:31.969Z\",\n            \"ContractId\": 4\n        },\n        {\n            \"id\": 5,\n            \"description\": \"work\",\n            \"price\": 200,\n            \"paid\": false,\n            \"paymentDate\": null,\n            \"createdAt\": \"2024-07-26T12:25:31.969Z\",\n            \"updatedAt\": \"2024-07-26T12:25:31.969Z\",\n            \"ContractId\": 7\n        }\n    ]\n}"
+					"body": null
 				}
 			]
 		},
@@ -212,11 +119,11 @@
 						"type": "text"
 					}
 				],
-				"url": "localhost:3001/jobs/2/pay"
+				"url": "localhost:3000/jobs/2/pay"
 			},
 			"response": [
 				{
-					"name": "Jobs Unpaid Copy",
+					"name": "Jobs - Pay",
 					"originalRequest": {
 						"method": "POST",
 						"header": [
@@ -226,43 +133,12 @@
 								"type": "text"
 							}
 						],
-						"url": "localhost:3001/jobs/2/pay"
+						"url": "localhost:3000/jobs/2/pay"
 					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "350"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"15e-fPr/k5OJEGO8fg2rikJrjhQ13fg\""
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 26 Jul 2024 12:30:28 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
+					"_postman_previewlanguage": null,
+					"header": null,
 					"cookie": [],
-					"body": "{\n    \"result\": {\n        \"id\": 2,\n        \"description\": \"work\",\n        \"price\": 201,\n        \"paid\": false,\n        \"paymentDate\": null,\n        \"createdAt\": \"2024-07-26T12:25:31.968Z\",\n        \"updatedAt\": \"2024-07-26T12:25:31.968Z\",\n        \"ContractId\": 2,\n        \"Contract\": {\n            \"id\": 2,\n            \"terms\": \"bla bla bla\",\n            \"status\": \"in_progress\",\n            \"createdAt\": \"2024-07-26T12:25:31.967Z\",\n            \"updatedAt\": \"2024-07-26T12:25:31.967Z\",\n            \"ContractorId\": 6,\n            \"ClientId\": 1\n        }\n    }\n}"
+					"body": null
 				}
 			]
 		},
@@ -286,11 +162,11 @@
 						}
 					}
 				},
-				"url": "localhost:3001/balances/deposit/2"
+				"url": "localhost:3000/balances/deposit/2"
 			},
 			"response": [
 				{
-					"name": "Jobs - Pay Copy",
+					"name": "Balances - Deposit",
 					"originalRequest": {
 						"method": "POST",
 						"header": [
@@ -309,43 +185,12 @@
 								}
 							}
 						},
-						"url": "localhost:3001/balances/deposit/2"
+						"url": "localhost:3000/balances/deposit/2"
 					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "54"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"36-G36fB8iTo2wCYMF8eE1upMME8JQ\""
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 26 Jul 2024 12:39:21 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
+					"_postman_previewlanguage": null,
+					"header": null,
 					"cookie": [],
-					"body": "{\n    \"result\": {\n        \"updatedSender\": [\n            1\n        ],\n        \"updatedReceiver\": [\n            1\n        ]\n    }\n}"
+					"body": null
 				}
 			]
 		},
@@ -384,7 +229,7 @@
 			},
 			"response": [
 				{
-					"name": "Jobs Unpaid Copy",
+					"name": "Admin Best Profession",
 					"originalRequest": {
 						"method": "GET",
 						"header": [
@@ -416,41 +261,10 @@
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "46"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"2e-6C80/qoi3tDah5HTZurR7Gg6fRk\""
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 26 Jul 2024 12:51:29 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
+					"_postman_previewlanguage": null,
+					"header": null,
 					"cookie": [],
-					"body": "{\n    \"profession\": \"Programmer\",\n    \"totalEarned\": 2683\n}"
+					"body": null
 				}
 			]
 		},
@@ -529,41 +343,10 @@
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "150"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"96-ql9yhgS1s7Bj5ZjNiZ22s0C6Htw\""
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 26 Jul 2024 12:58:21 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
+					"_postman_previewlanguage": null,
+					"header": null,
 					"cookie": [],
-					"body": "[\n    {\n        \"id\": 4,\n        \"totalPaid\": 2020,\n        \"fullName\": \"Ash Kethcum\"\n    },\n    {\n        \"id\": 1,\n        \"totalPaid\": 442,\n        \"fullName\": \"Harry Potter\"\n    },\n    {\n        \"id\": 2,\n        \"totalPaid\": 442,\n        \"fullName\": \"Mr Robot\"\n    }\n]"
+					"body": null
 				}
 			]
 		}
