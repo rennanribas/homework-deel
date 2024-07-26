@@ -7,7 +7,6 @@ const {
   NotFoundError,
   ExceedsFundsError,
 } = require('../errors')
-const { getProfileMiddleware } = require('../middleware/getProfile')
 
 const findBestProfession = async (startDate, endDate) => {
   const queryResult = await ProfileRepository.findBestProfession(

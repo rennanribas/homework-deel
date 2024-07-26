@@ -31,6 +31,24 @@ This backend exercise involves building a Node.js/Express.js app that will serve
 1. Install [Postman](https://www.postman.com/)
 2. Run `postman run Deel Homework.postman_collection.json`, or open the `Deel Homework.postman_collection.json` file in Postman.
 
+## FrontEnd
+
+### React app with unpaid contracts, job payment, profile info and contract info
+
+1. Download the repo on https://github.com/rennanribas/deel-homework-app
+2. Run `npm install`
+3. Run `npm start`
+
+## On-line test
+
+You can access the backend (this) app on:
+
+### https://homework-deel.onrender.com/
+
+You can Access the frontend (this) app on:
+
+### https://deel-homework-app.onrender.com/
+
 ## Data Models (Entities)
 
 ### Profile
