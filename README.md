@@ -26,6 +26,11 @@ This backend exercise involves building a Node.js/Express.js app that will serve
 2. Run `npm install`
 3. Run `npm run test`
 
+## Postman Collection
+
+1. Install [Postman](https://www.postman.com/)
+2. Run `postman run Deel Homework.postman_collection.json`, or open the `Deel Homework.postman_collection.json` file in Postman.
+
 ## Data Models (Entities)
 
 ### Profile

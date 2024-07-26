@@ -9,6 +9,6 @@ COPY scripts ./scripts
 
 RUN npm run seed
 
-EXPOSE 3001
+EXPOSE 3000
 
 CMD ["npm", "start"]

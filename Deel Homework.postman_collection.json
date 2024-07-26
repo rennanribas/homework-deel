@@ -206,11 +206,11 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:3001/admin/best-profession?start=2020-08-02&end=2020-08-20",
+					"raw": "localhost:3000/admin/best-profession?start=2020-08-02&end=2020-08-20",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "3000",
 					"path": [
 						"admin",
 						"best-profession"
@@ -240,11 +240,11 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:3001/admin/best-profession?start=2020-08-02&end=2020-08-20",
+							"raw": "localhost:3000/admin/best-profession?start=2020-08-02&end=2020-08-20",
 							"host": [
 								"localhost"
 							],
-							"port": "3001",
+							"port": "3000",
 							"path": [
 								"admin",
 								"best-profession"
@@ -280,11 +280,11 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:3001/admin/best-clients?start=2020-08-02&end=2020-08-20&limit=3",
+					"raw": "localhost:3000/admin/best-clients?start=2020-08-02&end=2020-08-20&limit=3",
 					"host": [
 						"localhost"
 					],
-					"port": "3001",
+					"port": "3000",
 					"path": [
 						"admin",
 						"best-clients"
@@ -318,11 +318,11 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:3001/admin/best-clients?start=2020-08-02&end=2020-08-20&limit=3",
+							"raw": "localhost:3000/admin/best-clients?start=2020-08-02&end=2020-08-20&limit=3",
 							"host": [
 								"localhost"
 							],
-							"port": "3001",
+							"port": "3000",
 							"path": [
 								"admin",
 								"best-clients"
