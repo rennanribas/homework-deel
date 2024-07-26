@@ -14,9 +14,10 @@ const getUnpaidJobs = async (req, res) => {
 
 const payJob = async (req, res) => {
   const profile = req.app.get('profile')
-  const jobId = Number(req.params.job_id)
 
   try {
+    const jobId = Number(req.params.job_id)
+
     const job = await updatePaymentJob(jobId, profile)
     res.status(201).json({ result: job })
   } catch (error) {
