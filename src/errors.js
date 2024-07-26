@@ -30,6 +30,14 @@ class InvalidSelfDepositError extends Error {
   }
 }
 
+class InvalidDateError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'InvalidDateError'
+    this.status = 400
+  }
+}
+
 class ExceedsFundsError extends Error {
   constructor(message) {
     super(message)
@@ -67,4 +75,5 @@ module.exports = {
   ExceedsFundsError,
   handleError,
   JobAlreadyPaidError,
+  InvalidDateError,
 }

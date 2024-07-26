@@ -1,4 +1,4 @@
-const { ProfileConstants, JobConstants } = require('../constants')
+const { Profile: ProfileConstants, Job: JobConstants } = require('../constants')
 const ProfileRepository = require('../repositories/profile')
 const JobRepository = require('../repositories/job')
 const sequelize = require('../entities/config')
@@ -7,9 +7,13 @@ const {
   NotFoundError,
   ExceedsFundsError,
 } = require('../errors')
+const { getProfileMiddleware } = require('../middleware/getProfile')
 
-const findBestProfession = async (since, to) => {
-  const queryResult = await ProfileRepository.findBestProfession(since, to)
+const findBestProfession = async (startDate, endDate) => {
+  const queryResult = await ProfileRepository.findBestProfession(
+    startDate,
+    endDate
+  )
 
   if (!queryResult || queryResult.length === 0) {
     throw new NotFoundError('No results found')
@@ -18,8 +22,12 @@ const findBestProfession = async (since, to) => {
   return queryResult[0]
 }
 
-const findBestClients = async (since, to, limit = 2) => {
-  const queryResult = await ProfileRepository.findBestClients(since, to, limit)
+const findBestClients = async (startDate, endDate, limit = 2) => {
+  const queryResult = await ProfileRepository.findBestClients(
+    startDate,
+    endDate,
+    limit
+  )
 
   if (!queryResult || queryResult.length === 0) {
     throw new NotFoundError('No results found')
@@ -65,7 +73,7 @@ const handleDeposit = async (profile, toId, amount) => {
     const transactionOption = { transaction: t, lock: t.LOCK.UPDATE }
 
     if (profile.type === ProfileConstants.type.CLIENT) {
-      const debt = await JobRepository.getClientBalance(
+      const debt = await JobRepository.findClientBalance(
         profile.id,
         transactionOption
       )
@@ -74,12 +82,15 @@ const handleDeposit = async (profile, toId, amount) => {
       }
     }
 
-    await transferBalance(profile.id, toId, amount, transactionOption)
+    const updateResult = await transferBalance(
+      profile,
+      toId,
+      amount,
+      transactionOption
+    )
     await t.commit()
 
-    const result = await profile.reload()
-
-    return result
+    return updateResult
   } catch (error) {
     await t.rollback()
     throw error

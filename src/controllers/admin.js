@@ -1,14 +1,18 @@
 const { findBestClients, findBestProfession } = require('../services/profile')
-const { handleError } = require('../errors')
+const { handleError, InvalidDateError } = require('../errors')
 
 const getBestProfession = async (req, res) => {
   const { start, end } = req.query
 
-  const since = new Date(Number(start))
-  const to = new Date(Number(end))
+  const startDate = new Date(start)
+  const endDate = new Date(end)
+
+  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+    throw new InvalidDateError('Invalid date format')
+  }
 
   try {
-    const result = await findBestProfession(since, to)
+    const result = await findBestProfession(startDate, endDate)
     res.status(200).json(result)
   } catch (error) {
     handleError(res, error)
@@ -18,11 +22,15 @@ const getBestProfession = async (req, res) => {
 const getBestClients = async (req, res) => {
   const { start, end, limit } = req.query
 
-  const since = new Date(Number(start))
-  const to = new Date(Number(end))
+  const startDate = new Date(start)
+  const endDate = new Date(end)
+
+  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+    throw new InvalidDateError('Invalid date format')
+  }
 
   try {
-    const result = await findBestClients(since, to, limit)
+    const result = await findBestClients(startDate, endDate, limit)
     res.status(200).json(result)
   } catch (error) {
     handleError(res, error)

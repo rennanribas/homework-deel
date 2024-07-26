@@ -1,6 +1,6 @@
 const ProfileRepository = require('../repositories/profile')
 
-const getProfile = async (req, res, next) => {
+const getProfileMiddleware = async (req, res, next) => {
   const profileId = req.get('profile_id')
   if (!profileId) return res.status(400).json({ message: 'Profile id missing' })
 
@@ -11,4 +11,4 @@ const getProfile = async (req, res, next) => {
     next()
   }
 }
-module.exports = { getProfile }
+module.exports = { getProfileMiddleware }
