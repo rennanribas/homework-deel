@@ -1,7 +1,7 @@
 const request = require('supertest')
 const app = require('../../src/app')
 
-describe('Jobs API', () => {
+describe('Jobs Endpoints', () => {
   it('should get unpaid jobs', async () => {
     const res = await request(app).get('/jobs/unpaid').set('profile_id', 1)
     expect(res.statusCode).toEqual(200)

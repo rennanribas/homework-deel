@@ -47,6 +47,10 @@ const transferBalance = async (
     transactionOption
   )
 
+  if (!profileReceiver) {
+    throw new NotFoundError('Receiver was not found')
+  }
+
   if (profileSender.balance < amount) {
     throw new ExceedsFundsError('No balance enough to make this transfer')
   }

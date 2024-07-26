@@ -54,6 +54,14 @@ class JobAlreadyPaidError extends Error {
   }
 }
 
+class AmountBiggerThanRatioError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'AmountBiggerThanRatioError'
+    this.status = 400
+  }
+}
+
 const handleError = (res, error) => {
   console.error(error)
   let statusCode = 500
@@ -76,4 +84,5 @@ module.exports = {
   handleError,
   JobAlreadyPaidError,
   InvalidDateError,
+  AmountBiggerThanRatioError,
 }

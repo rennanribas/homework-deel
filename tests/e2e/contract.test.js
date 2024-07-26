@@ -1,7 +1,7 @@
 const request = require('supertest')
 const app = require('../../src/app')
 
-describe('Contracts API', () => {
+describe('Contracts Endpoints', () => {
   it('should get contract', async () => {
     const res = await request(app).get('/contracts/1').set('profile_id', 1)
     expect(res.statusCode).toBe(200)
