@@ -5,7 +5,7 @@ const getUnpaidJobs = async (req, res) => {
   const profile = req.app.get('profile')
 
   try {
-    const jobs = await findUnpaidJobsByProfile(profile.id)
+    const jobs = await findUnpaidJobsByProfile(profile)
     res.status(200).json({ result: jobs })
   } catch (error) {
     handleError(res, error)

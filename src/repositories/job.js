@@ -10,9 +10,10 @@ async function findById(id, options = {}) {
 }
 
 async function findUnpaidJobs(filter = {}) {
+  console.log('filter', filter)
   const openJobsFilter = {
+    ...(filter || {}),
     where: {
-      ...(filter.where || {}),
       paid: { [Op.or]: [null, false] },
     },
   }

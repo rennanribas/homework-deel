@@ -14,10 +14,8 @@ const {
 const { Op } = require('sequelize')
 
 const findUnpaidJobsByProfile = async (profile) => {
+  console.log('profile', profile)
   const unpaidFilter = {
-    where: {
-      paid: { [Op.or]: [null, false] },
-    },
     include: {
       model: ContractEntity,
       where: {
@@ -42,9 +40,9 @@ const updatePaymentJob = async (jobId, profile) => {
 
     if (!job) throw new NotFoundError('Job not found')
     if (profile.type !== ProfileConstants.type.CLIENT)
-      throw new UnauthorizedError('Profile is not client')
+      throw new UnauthorizedError('Profile is not a client')
     if (job.Contract.ClientId !== profile.id)
-      throw new UnauthorizedError('Profile is not job client')
+      throw new UnauthorizedError('Profile is unauthorized to pay this job')
     if (job.paid) throw new JobAlreadyPaidError('Job already paid')
 
     await transferBalance(
@@ -61,7 +59,7 @@ const updatePaymentJob = async (jobId, profile) => {
     )
     await t.commit()
 
-    return job
+    return { id: job.id, paid: true }
   } catch (error) {
     await t.rollback()
     throw error
