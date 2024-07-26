@@ -1,5 +1,5 @@
 const { Profile: ProfileConstants } = require('../constants')
-const ContractRepository = require('../repositories/contract')
+const ContractRepository = require('../repositories/contracts.repository')
 const { ContractMissingError, UnauthorizedError } = require('../errors')
 
 const findContractIdByProfile = async (id, profile) => {

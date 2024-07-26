@@ -1,6 +1,6 @@
 const { Profile: ProfileConstants, Job: JobConstants } = require('../constants')
-const ProfileRepository = require('../repositories/profile')
-const JobRepository = require('../repositories/job')
+const ProfileRepository = require('../repositories/profiles.repository')
+const JobRepository = require('../repositories/jobs.repository')
 const sequelize = require('../entities/config')
 const {
   AmountBiggerThanRatioError,
@@ -57,18 +57,23 @@ const transferBalance = async (
   const newBalanceSender = profileSender.balance - amount
   const newBalanceReceiver = profileReceiver.balance + amount
 
-  const updatedSender = await ProfileRepository.updateBalance(
+  await ProfileRepository.updateBalance(
     profileSender.id,
     newBalanceSender,
     transactionOption.transaction
   )
-  const updatedReceiver = await ProfileRepository.updateBalance(
+  await ProfileRepository.updateBalance(
     receiverId,
     newBalanceReceiver,
     transactionOption.transaction
   )
 
-  return { updatedSender, updatedReceiver }
+  return {
+    updatedSender: profileSender.id,
+    updatedReceiver: profileReceiver.id,
+    amount: amount,
+    newBalanceSender: newBalanceSender,
+  }
 }
 
 const handleDeposit = async (profile, toId, amount) => {

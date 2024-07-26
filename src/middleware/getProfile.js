@@ -1,4 +1,4 @@
-const ProfileRepository = require('../repositories/profile')
+const ProfileRepository = require('../repositories/profiles.repository')
 
 const getProfileMiddleware = async (req, res, next) => {
   const profileId = req.get('profile_id')

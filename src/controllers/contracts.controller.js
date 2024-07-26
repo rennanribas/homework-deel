@@ -1,7 +1,7 @@
 const {
   findContractIdByProfile,
   findNotTerminatedByProfile,
-} = require('../services/contract')
+} = require('../services/contracts.service')
 const { handleError } = require('../errors')
 
 const getContract = async (req, res) => {

@@ -1,11 +1,14 @@
 const { Router } = require('express')
-const { getBestProfession, getBestClients } = require('./controllers/admin')
-const { deposit } = require('./controllers/balance')
+const {
+  getBestProfession,
+  getBestClients,
+} = require('./controllers/admins.controller')
+const { deposit } = require('./controllers/balances.controller')
 const {
   getContract,
   getNotTerminatedContracts,
-} = require('./controllers/contract')
-const { getUnpaidJobs, payJob } = require('./controllers/job')
+} = require('./controllers/contracts.controller')
+const { getUnpaidJobs, payJob } = require('./controllers/jobs.controller')
 const { getProfileMiddleware } = require('./middleware/getProfile')
 
 const router = Router()

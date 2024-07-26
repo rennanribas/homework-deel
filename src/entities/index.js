@@ -1,6 +1,6 @@
-const Job = require('./job')
-const Contract = require('./contract')
-const Profile = require('./profile')
+const Job = require('./job.model')
+const Contract = require('./contract.model')
+const Profile = require('./profile.model')
 
 Profile.hasMany(Contract, { as: 'Contractor', foreignKey: 'ContractorId' })
 Contract.belongsTo(Profile, { as: 'Contractor' })

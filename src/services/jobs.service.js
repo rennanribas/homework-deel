@@ -1,11 +1,11 @@
-const JobRepository = require('../repositories/job')
-const ContractEntity = require('../entities/contract')
+const JobRepository = require('../repositories/jobs.repository')
+const ContractEntity = require('../entities/contract.model')
 const {
   Profile: ProfileConstants,
   Contract: ContractConstants,
 } = require('../constants')
 const sequelize = require('../entities/config')
-const { transferBalance } = require('./profile')
+const { transferBalance } = require('./profiles.service')
 const {
   NotFoundError,
   JobAlreadyPaidError,

@@ -1,4 +1,7 @@
-const { findUnpaidJobsByProfile, updatePaymentJob } = require('../services/job')
+const {
+  findUnpaidJobsByProfile,
+  updatePaymentJob,
+} = require('../services/jobs.service')
 const { handleError } = require('../errors')
 
 const getUnpaidJobs = async (req, res) => {

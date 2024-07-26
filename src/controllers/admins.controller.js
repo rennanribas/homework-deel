@@ -1,4 +1,7 @@
-const { findBestClients, findBestProfession } = require('../services/profile')
+const {
+  findBestClients,
+  findBestProfession,
+} = require('../services/profiles.service')
 const { handleError, InvalidDateError } = require('../errors')
 
 const getBestProfession = async (req, res) => {

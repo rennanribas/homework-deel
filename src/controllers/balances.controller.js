@@ -1,4 +1,4 @@
-const { handleDeposit } = require('../services/profile')
+const { handleDeposit } = require('../services/profiles.service')
 const { handleError } = require('../errors')
 
 const deposit = async (req, res) => {
