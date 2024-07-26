@@ -1,5 +1,5 @@
-const { queryBestClients, queryBestProfession } = require('../services/profile')
-const { handleError } = require('./errorHandling')
+const { findBestClients, findBestProfession } = require('../services/profile')
+const { handleError } = require('../errors')
 
 const getBestProfession = async (req, res) => {
   const { start, end } = req.query
@@ -8,7 +8,7 @@ const getBestProfession = async (req, res) => {
   const to = new Date(Number(end))
 
   try {
-    const result = await queryBestProfession(since, to)
+    const result = await findBestProfession(since, to)
     res.status(200).json(result)
   } catch (error) {
     handleError(res, error)
@@ -22,7 +22,7 @@ const getBestClients = async (req, res) => {
   const to = new Date(Number(end))
 
   try {
-    const result = await queryBestClients(since, to, limit)
+    const result = await findBestClients(since, to, limit)
     res.status(200).json(result)
   } catch (error) {
     handleError(res, error)

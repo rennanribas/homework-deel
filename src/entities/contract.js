@@ -18,5 +18,4 @@ Contract.init(
     modelName: 'Contract',
   }
 )
-
 module.exports = Contract

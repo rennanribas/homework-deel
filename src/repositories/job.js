@@ -1,7 +1,7 @@
 const { Op } = require('sequelize')
 const { Job: JobEntity, Contract: ContractEntity } = require('../entities')
 
-async function getById(id, options = {}) {
+async function findById(id, options = {}) {
   return await JobEntity.findOne({
     where: { id },
     include: [ContractEntity],
@@ -9,7 +9,7 @@ async function getById(id, options = {}) {
   })
 }
 
-async function getOpenJobs(filter = {}) {
+async function findUnpaidJobs(filter = {}) {
   const openJobsFilter = {
     where: {
       ...(filter.where || {}),
@@ -20,7 +20,7 @@ async function getOpenJobs(filter = {}) {
   return await JobEntity.findAll(openJobsFilter)
 }
 
-async function getClientBalance(clientId, options = {}) {
+async function findClientBalance(clientId, options = {}) {
   return await JobEntity.sum('price', {
     where: { paid: { [Op.or]: [false, null] } },
     include: {
@@ -31,8 +31,16 @@ async function getClientBalance(clientId, options = {}) {
   })
 }
 
-async function updateJobPayment(paid = true, transaction) {
-  await JobEntity.update({ paid, paymentDate: new Date() }, { transaction })
+async function updateJobPayment(jobId, paid = true, transaction) {
+  await JobEntity.update(
+    { paid, paymentDate: new Date() },
+    { where: { id: jobId }, transaction }
+  )
 }
 
-module.exports = { getById, getOpenJobs, getClientBalance, updateJobPayment }
+module.exports = {
+  findById,
+  findUnpaidJobs,
+  findClientBalance,
+  updateJobPayment,
+}

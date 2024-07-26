@@ -2,7 +2,7 @@ const {
   findContractIdByProfile,
   findNotTerminatedByProfile,
 } = require('../services/contract')
-const { ContractMissingError, UnauthorizedError } = require('./errorHandling')
+const { handleError } = require('../errors')
 
 const getContract = async (req, res) => {
   const profile = req.app.get('profile')
@@ -24,17 +24,6 @@ const getNotTerminatedContracts = async (req, res) => {
     res.status(200).json({ result: contracts })
   } catch (error) {
     handleError(res, error)
-  }
-}
-
-const handleError = (res, error) => {
-  if (
-    error instanceof ContractMissingError ||
-    error instanceof UnauthorizedError
-  ) {
-    res.status(error.status).json({ error: error.message })
-  } else {
-    res.status(500).json({ error: 'Internal server error' })
   }
 }
 

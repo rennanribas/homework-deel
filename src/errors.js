@@ -1,3 +1,11 @@
+class NotFoundError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'NotFoundError'
+    this.status = 404
+  }
+}
+
 class ContractMissingError extends Error {
   constructor(message) {
     super(message)
@@ -22,7 +30,7 @@ class InvalidSelfDepositError extends Error {
   }
 }
 
-class ExceedsDebtRatioError extends Error {
+class ExceedsFundsError extends Error {
   constructor(message) {
     super(message)
     this.name = 'ExceedsDebtRatioError'
@@ -30,45 +38,33 @@ class ExceedsDebtRatioError extends Error {
   }
 }
 
-class JobNotLocatedError extends Error {
+class JobAlreadyPaidError extends Error {
   constructor(message) {
     super(message)
-    this.name = 'JobNotLocatedError'
-    this.status = 404
-  }
-}
-
-class UserNotClientError extends Error {
-  constructor(message) {
-    super(message)
-    this.name = 'UserNotClientError'
+    this.name = 'JobAlreadyPaidError'
     this.status = 400
   }
 }
 
-class JobClientMismatchError extends Error {
-  constructor(message) {
-    super(message)
-    this.name = 'JobClientMismatchError'
-    this.status = 400
-  }
-}
+const handleError = (res, error) => {
+  console.error(error)
+  let statusCode = 500
 
-class JobAlreadySettledError extends Error {
-  constructor(message) {
-    super(message)
-    this.name = 'JobAlreadySettledError'
-    this.status = 400
+  if (error instanceof Error) {
+    statusCode = error.status
   }
+
+  res.status(statusCode).json({
+    error: error.message || 'Internal Server Error',
+  })
 }
 
 module.exports = {
-  UnauthorizedError,
+  NotFoundError,
   ContractMissingError,
+  UnauthorizedError,
   InvalidSelfDepositError,
-  ExceedsDebtRatioError,
-  JobNotLocatedError,
-  UserNotClientError,
-  JobClientMismatchError,
-  JobAlreadySettledError,
+  ExceedsFundsError,
+  handleError,
+  JobAlreadyPaidError,
 }

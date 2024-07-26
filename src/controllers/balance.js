@@ -1,5 +1,5 @@
-const { makeDeposit } = require('../services/profile')
-const { handleError } = require('./errorHandling')
+const { handleDeposit } = require('../services/profile')
+const { handleError } = require('../errors')
 
 const deposit = async (req, res) => {
   const profile = req.app.get('profile')
@@ -7,7 +7,7 @@ const deposit = async (req, res) => {
   const amount = Number(req.body.amount)
 
   try {
-    const result = await makeDeposit(profile, userId, amount)
+    const result = await handleDeposit(profile, userId, amount)
     res.status(201).json({ result })
   } catch (error) {
     handleError(res, error)

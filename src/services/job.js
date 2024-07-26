@@ -1,62 +1,64 @@
-const JobEntity = require('../entities/job')
+const JobRepository = require('../repositories/job')
 const ContractEntity = require('../entities/contract')
-const { ProfileConstants, ContractConstants } = require('../constants')
-const { sequelizeConfig } = require('../entities/config')
-const { executeTransfer } = require('./profile')
 const {
-  JobNotFoundError,
-  ProfileIsNotClientError,
-  ProfileIsNotJobClient,
+  Profile: ProfileConstants,
+  Contract: ContractConstants,
+} = require('../constants')
+const sequelize = require('../entities/config')
+const { transferBalance } = require('./profile')
+const {
+  NotFoundError,
   JobAlreadyPaidError,
-} = require('../controllers/errorHandling')
+  UnauthorizedError,
+} = require('../errors')
+const { Op } = require('sequelize')
 
-const getUnpaidJobsByProfile = async (profileId) => {
-  const clientJob = JobEntity.unpaidWithFilter({
+const findUnpaidJobsByProfile = async (profile) => {
+  const unpaidFilter = {
+    where: {
+      paid: { [Op.or]: [null, false] },
+    },
     include: {
       model: ContractEntity,
       where: {
-        ClientId: profileId,
+        [profile.type === ProfileConstants.type.CLIENT
+          ? 'ClientId'
+          : 'ContractorId']: profile.id,
         status: ContractConstants.type.IN_PROGRESS,
       },
     },
-  })
+  }
 
-  const contractorJob = JobEntity.unpaidWithFilter({
-    include: {
-      model: ContractEntity,
-      where: {
-        ContractorId: profileId,
-        status: ContractConstants.type.IN_PROGRESS,
-      },
-    },
-  })
+  const jobs = await JobRepository.findUnpaidJobs(unpaidFilter)
 
-  const jobs = await Promise.all([clientJob, contractorJob])
-
-  return jobs.flat()
+  return jobs
 }
 
-const makePayment = async (jobId, profile) => {
+const updatePaymentJob = async (jobId, profile) => {
   const t = await sequelize.transaction()
   try {
     const transactionOption = { transaction: t, lock: t.LOCK.UPDATE }
-    const job = await JobEntity.getById(jobId, transactionOption)
+    const job = await JobRepository.findById(jobId, transactionOption)
 
-    if (!job) throw new JobNotFoundError('Job not found')
+    if (!job) throw new NotFoundError('Job not found')
     if (profile.type !== ProfileConstants.type.CLIENT)
-      throw new ProfileIsNotClientError('Profile is not client')
+      throw new UnauthorizedError('Profile is not client')
     if (job.Contract.ClientId !== profile.id)
-      throw new ProfileIsNotJobClient('Profile is not job client')
+      throw new UnauthorizedError('Profile is not job client')
     if (job.paid) throw new JobAlreadyPaidError('Job already paid')
 
-    await executeTransfer(
-      job.Contract.ClientId,
+    await transferBalance(
+      profile,
       job.Contract.ContractorId,
       job.price,
       transactionOption
     )
 
-    await job.pay(transactionOption)
+    await JobRepository.updateJobPayment(
+      job.id,
+      true,
+      transactionOption.transaction
+    )
     await t.commit()
 
     return job
@@ -66,4 +68,4 @@ const makePayment = async (jobId, profile) => {
   }
 }
 
-module.exports = { getUnpaidJobsByProfile, makePayment }
+module.exports = { findUnpaidJobsByProfile, updatePaymentJob }

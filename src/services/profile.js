@@ -1,15 +1,15 @@
 const { ProfileConstants, JobConstants } = require('../constants')
-const { ProfileEntity: Profile, JobEntity: Job } = require('../entities')
-const { sequelizeConfig } = require('../entities/config')
+const ProfileRepository = require('../repositories/profile')
+const JobRepository = require('../repositories/job')
+const sequelize = require('../entities/config')
 const {
   AmountBiggerThanRatioError,
-  SelfDepositError,
   NotFoundError,
-  InsufficientFundsError,
-} = require('../controllers/errorHandling')
+  ExceedsFundsError,
+} = require('../errors')
 
-const queryBestProfession = async (since, to) => {
-  const queryResult = await ProfileEntity.getBestProfession(since, to)
+const findBestProfession = async (since, to) => {
+  const queryResult = await ProfileRepository.findBestProfession(since, to)
 
   if (!queryResult || queryResult.length === 0) {
     throw new NotFoundError('No results found')
@@ -18,8 +18,8 @@ const queryBestProfession = async (since, to) => {
   return queryResult[0]
 }
 
-const queryBestClients = async (since, to, limit = 2) => {
-  const queryResult = await ProfileEntity.getBestClients(since, to, limit)
+const findBestClients = async (since, to, limit = 2) => {
+  const queryResult = await ProfileRepository.findBestClients(since, to, limit)
 
   if (!queryResult || queryResult.length === 0) {
     throw new NotFoundError('No results found')
@@ -28,39 +28,53 @@ const queryBestClients = async (since, to, limit = 2) => {
   return queryResult
 }
 
-const executeTransfer = async (fromId, toId, amount, transactionOption) => {
-  const from = await ProfileEntity.getById(fromId, transactionOption)
-  const to = await ProfileEntity.getById(toId, transactionOption)
+const transferBalance = async (
+  profileSender,
+  receiverId,
+  amount,
+  transactionOption
+) => {
+  const profileReceiver = await ProfileRepository.findById(
+    receiverId,
+    transactionOption
+  )
 
-  if (!from || !to) {
-    throw new NotFoundError('Profile not found')
+  if (profileSender.balance < amount) {
+    throw new ExceedsFundsError('No balance enough to make this transfer')
   }
+  const newBalanceSender = profileSender.balance - amount
+  const newBalanceReceiver = profileReceiver.balance + amount
 
-  if (from.balance < amount) {
-    throw new InsufficientFundsError('Insufficient funds')
-  }
+  const updatedSender = await ProfileRepository.updateBalance(
+    profileSender.id,
+    newBalanceSender,
+    transactionOption.transaction
+  )
+  const updatedReceiver = await ProfileRepository.updateBalance(
+    receiverId,
+    newBalanceReceiver,
+    transactionOption.transaction
+  )
 
-  await from.sendPayment(amount, transactionOption)
-  await to.receivePayment(amount, transactionOption)
+  return { updatedSender, updatedReceiver }
 }
 
-const makeDeposit = async (profile, toId, amount) => {
-  const t = await sequelizeConfig.transaction()
+const handleDeposit = async (profile, toId, amount) => {
+  const t = await sequelize.transaction()
   try {
     const transactionOption = { transaction: t, lock: t.LOCK.UPDATE }
 
     if (profile.type === ProfileConstants.type.CLIENT) {
-      const debt = await JobEntity.getClientDebt(profile.id, transactionOption)
+      const debt = await JobRepository.getClientBalance(
+        profile.id,
+        transactionOption
+      )
       if (debt * JobConstants.maxPercentage < amount) {
         throw new AmountBiggerThanRatioError('Amount is bigger than debt ratio')
       }
     }
 
-    if (profile.id === toId) {
-      throw new SelfDepositError('Cannot deposit to yourself')
-    }
-
-    await executeTransfer(profile.id, toId, amount, transactionOption)
+    await transferBalance(profile.id, toId, amount, transactionOption)
     await t.commit()
 
     const result = await profile.reload()
@@ -72,4 +86,9 @@ const makeDeposit = async (profile, toId, amount) => {
   }
 }
 
-module.exports = { queryBestProfession, queryBestClients, makeDeposit }
+module.exports = {
+  findBestProfession,
+  findBestClients,
+  handleDeposit,
+  transferBalance,
+}
