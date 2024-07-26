@@ -12,7 +12,7 @@
     "seed": "node ./scripts/seedDb.js",
     "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js",
-    "test": "NODENV=test jest"
+    "test": "npm run seed && NODENV=test jest"
   },
   "devDependencies": {
     "concurrently": "^8.0.1",

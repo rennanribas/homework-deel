@@ -4,7 +4,7 @@ const app = require('../../src/app')
 describe('Balances Endpoints', () => {
   it('should deposit money', async () => {
     const res = await request(app)
-      .post('/balances/deposit/1')
+      .post('/balances/deposit/2')
       .set('profile_id', 1)
       .send({ amount: 10 })
     expect(res.statusCode).toEqual(201)
